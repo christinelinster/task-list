@@ -14,17 +14,33 @@ main {
   text-align: center;
   flex: 1 0 auto;
 }
+
+.lists{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 50px;
+}
+
 h1 {
   color: #fff;
-  padding: 10px;
+  padding: 15px;
+  margin: 0;
+}
+
+#heading.box{
+  margin:0;
+  border-bottom-left-radius:0;
+  border-bottom-right-radius:0;
 }
 
 .box {
   max-width: 400px;
-  margin: 50px auto;
   background: white;
   border-radius: 5px;
   box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
+  width: 400px;
 }
 
 #heading {
@@ -40,6 +56,7 @@ form.edit {
   display: flex;
   align-items: center;
   border-bottom: 1px solid #f1f1f1;
+  padding-left:20px;
 }
 
 .item:last-child {
@@ -60,7 +77,6 @@ p {
 
 form {
   text-align: center;
-  margin-left: 20px;
 }
 
 button.add {
@@ -110,4 +126,13 @@ footer {
   flex: 0 0 auto;
   color: white;
   text-align: center;
+}
+
+.new-list{
+  border: none;
+  background-color: #a683e3;
+}
+
+h1 > form >input{
+  display: none;
 }
