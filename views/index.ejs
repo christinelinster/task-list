@@ -8,13 +8,14 @@
 
 <div class="lists">
   <% for (let category of categories){ %> 
+    
     <div class="box">
       <div class="box" id="heading">
         <h1>
-          <form action="/delete" method="post">
+          <form action="/deleteList" method="post">
             <input name="categoryId" value="<%= category.id%>" id="<%= category.id%>">
             <label for="<%= category.id%>"><%= category.type %></label>
-            <button onchange="this.form.submit()" name="deleteListId" value="<%= category.id%>">Delete List</button>
+            <button onclick="this.form.submit()" name="deleteListId" value="<%= category.id%>">Delete List</button>
           </form>
         </h1>
       </div>

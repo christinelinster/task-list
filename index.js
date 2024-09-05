@@ -30,7 +30,8 @@ let currentCategory = "";
 // async function getCurrentCategory(){
 //   const result = await db.query("SELECT * FROM categories")
 //   categories = result.rows;
-//   return categories.find((category) => category.id == currentCategoryId).type;
+//   currentCategory = categories.find((category) => category.id == currentCategoryId)
+//   return currentCategory[0];
 // }
 
 function fullDate(){
@@ -42,7 +43,6 @@ function fullDate(){
 app.get("/", async(req, res) => {
   try {
     categories = (await db.query("SELECT * FROM categories")).rows;
-    console.log(categories);
     const result = await db.query("SELECT * FROM items ORDER BY id ASC");
     items = result.rows;
     const today = fullDate();
@@ -98,17 +98,28 @@ app.post("/edit", async(req, res) => {
 app.post("/delete", async(req, res) => {
   try {
     const itemId = req.body.deleteItemId; 
-    const listId = req.body.deleteListId;
-    
-  await db.query("DELETE FROM items WHERE id = ($1);", [itemId])
-  await db.query("DELETE FROM categories WHERE id = ($1);", [listId])
-  
-  res.redirect("/");
+    await db.query("DELETE FROM items WHERE id = ($1);", [itemId])
+    res.redirect("/");
   } catch (error) {
     console.log(error);
   }
-
 });
+
+app.post("/deleteList", async(req,res) => {
+try {
+  const id = req.body.deleteListId;
+  const result = await db.query("SELECT * FROM categories WHERE id = ($1);", [id]);
+  const deleteCategory = result.rows[0].type;
+  
+  await db.query("DELETE FROM items WHERE category = ($1);", [deleteCategory]);
+  await db.query("DELETE FROM categories WHERE id = ($1);", [id]);
+
+  res.redirect("/")
+
+} catch (error) {
+  console.log(error)
+}
+})
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
