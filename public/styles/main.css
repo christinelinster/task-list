@@ -1,9 +1,9 @@
 html {
-  background-color: #e4e9fd;
-  background-image: -webkit-linear-gradient(65deg, #a683e3 50%, #e4e9fd 50%);
-  min-height: 1000px;
+  background-color: #af2f34;
+  min-height: 100vh;
   font-family: "helvetica neue";
 }
+
 body {
   display: flex;
   flex-direction: column;
@@ -15,7 +15,7 @@ main {
   flex: 1 0 auto;
 }
 
-.lists{
+.list{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

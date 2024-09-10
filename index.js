@@ -25,32 +25,47 @@ let items = [
 let categories = [{id: 1, type: "Learning"},{id:2, type: "General"}]
 
 let currentCategory = "";
-// let currentCategoryId = 1; 
-
 // async function getCurrentCategory(){
 //   const result = await db.query("SELECT * FROM categories")
 //   categories = result.rows;
-//   currentCategory = categories.find((category) => category.id == currentCategoryId)
-//   return currentCategory[0];
+//   const currentCategory = categories.find((category) => category.id == currentCategoryId)
+//   return currentCategory.type;
 // }
 
 function fullDate(){
-  let date =  new Date();
-  let newDate = date.toLocaleDateString();
+  const date =  new Date();
+  const newDate = date.toLocaleDateString('default', { month: "short", year: "numeric", day: "numeric"  });
   return newDate;
 }
+
+// function getNumItems(listItems, category){
+//   let numItems = 0; 
+//   for (let item of listItems){
+//     if(item.category == category.type){
+//       numItems++;
+//     }
+//   }
+//   return numItems;
+// }
+
 
 app.get("/", async(req, res) => {
   try {
     categories = (await db.query("SELECT * FROM categories")).rows;
-    const result = await db.query("SELECT * FROM items ORDER BY id ASC");
+    const result = await db.query("SELECT * FROM items JOIN categories ON items.category = categories.type ORDER BY id ASC");
     items = result.rows;
+
+    // const currentCategory = await getCurrentCategory();
+    // console.log(currentCategory);
+    // const numItems = (await db.query("SELECT * FROM items WHERE category = ($1);", [currentCategory])).rows.length;
+    // console.log(numItems);
+
     const today = fullDate();
 
   res.render("index.ejs", {
     listItems: items,
     categories: categories,
-    today: today
+    today: today,
   });
     
   } catch (error) {
@@ -97,8 +112,8 @@ app.post("/edit", async(req, res) => {
 
 app.post("/delete", async(req, res) => {
   try {
-    const itemId = req.body.deleteItemId; 
-    await db.query("DELETE FROM items WHERE id = ($1);", [itemId])
+    const id = req.body.deleteItemId; 
+    await db.query("DELETE FROM items WHERE id = ($1);", [id])
     res.redirect("/");
   } catch (error) {
     console.log(error);
@@ -107,12 +122,12 @@ app.post("/delete", async(req, res) => {
 
 app.post("/deleteList", async(req,res) => {
 try {
-  const id = req.body.deleteListId;
-  const result = await db.query("SELECT * FROM categories WHERE id = ($1);", [id]);
+  const id = req.body.listId;
+  const result = await db.query("SELECT * FROM categories WHERE cat_id = ($1);", [id]);
   const deleteCategory = result.rows[0].type;
   
   await db.query("DELETE FROM items WHERE category = ($1);", [deleteCategory]);
-  await db.query("DELETE FROM categories WHERE id = ($1);", [id]);
+  await db.query("DELETE FROM categories WHERE cat_id = ($1);", [id]);
 
   res.redirect("/")
 
