@@ -1,5 +1,5 @@
 html {
-  background-color: #af2f34;
+  background-color: #1E201E;
   min-height: 100vh;
   font-family: "helvetica neue";
 }
@@ -9,15 +9,81 @@ body {
   flex-direction: column;
   justify-content: stretch;
   min-height: 95vh;
-}
-main {
   text-align: center;
+}
+
+main {
   flex: 1 0 auto;
 }
 
+/* List Heading */
+div.heading{
+  padding: 2rem;
+}
+
+.heading>h1{
+  color: #DED0B6;
+  font-family: "Poppins", sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  padding: 0;
+  line-height: normal;
+  letter-spacing: 2px;
+}
+
+.heading>p{
+  color: #fff;
+  font-family: "Roboto Mono", sans-serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding:0;
+  margin-top:-.5rem;
+  letter-spacing: 1px;
+}
+
+hr {
+border: 0.5px solid #DED0B6;
+margin: 2rem 0;
+}
+
+.heading>form>input[type="text"]{
+  text-align: left;
+  background-color: #D9D9D9;
+  border-radius: 10px;
+  border: none;
+  width: 25%;
+  height: 25px;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-family: "Geologica", sans-serif;
+  font-weight: 400;
+}
+
+.heading>form>input[type="text"]:focus{
+  outline: none;
+}
+
+.heading>form>button[type="submit"]{
+  margin-left: 15px;
+  background-color: rgba(222, 208, 182, 0.50);
+  border-radius: 10px;
+  border:none;
+  color: #FFF;
+  height: 35px;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-family: "Geologica", sans-serif;
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+
+.heading>form>button[type="submit"]:hover{
+  background-color:  rgba(222, 208, 182, 0.80);
+}
 .list{
   display: flex;
   flex-wrap: wrap;
+  align-items: flex-start;
   justify-content: center;
   gap: 20px;
   padding: 50px;
@@ -29,7 +95,7 @@ h1 {
   margin: 0;
 }
 
-#heading.box{
+.title.box{
   margin:0;
   border-bottom-left-radius:0;
   border-bottom-right-radius:0;
@@ -43,7 +109,7 @@ h1 {
   width: 400px;
 }
 
-#heading {
+.title {
   background-color: #a683e3;
   text-align: center;
 }
@@ -101,21 +167,20 @@ button.edit {
   height: 20px;
 }
 
-input[type="text"] {
+/* input[type="text"] {
   text-align: left;
   height: 60px;
   top: 10px;
   border: none;
-  background: transparent;
   font-size: 20px;
   font-weight: 200;
   width: 80%;
-}
+} */
 
-input[type="text"]:focus {
+/* input[type="text"]:focus {
   outline: none;
   box-shadow: inset 0 -3px 0 0 #a683e3;
-}
+} */
 
 ::placeholder {
   color: lightgray;

@@ -34,7 +34,7 @@ let currentCategory = "";
 
 function fullDate(){
   const date =  new Date();
-  const newDate = date.toLocaleDateString('default', { month: "short", year: "numeric", day: "numeric"  });
+  const newDate = date.toLocaleDateString('default', { month: "long", year: "numeric", day: "numeric"  });
   return newDate;
 }
 

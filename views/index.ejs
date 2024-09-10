@@ -4,10 +4,12 @@
 <div class="heading">
   <h1>TASK TRACKR</h1>
   <p><%= today %></p>
+
+  <hr>
   
   <form action="/list" method="post">
-    <input type="text" name="newList">
-    <button type="submit">Add List</button>
+    <input type="text" name="newList" autocomplete="off">
+    <button type="submit">+ New List</button>
   </form>
 </div>
 
@@ -15,10 +17,10 @@
 <div class="list">
   <% for (let category of categories){ %> 
     <div class="box">
-      <div class="box" id="heading">
+      <div class="title">
         <h1>
           <form action="/deleteList" method="post">
-            <input name="listId" value="<%= category.cat_id%>" id="<%= category.cat_id%>">
+            <input hidden name="listId" value="<%= category.cat_id%>" id="<%= category.cat_id%>">
             <label for="<%= category.cat_id%>"><%= category.type %></label>
             <button onclick="this.form.submit()"><img class="icon" src="/assets/icons/trash.svg" alt="trash image"></button>
           </form>
