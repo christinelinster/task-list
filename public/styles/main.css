@@ -47,9 +47,10 @@ border: 0.5px solid #DED0B6;
 margin: 2rem 0;
 }
 
-.heading>form>input[type="text"]{
+.heading>form>input[type="text"], .heading>form>input[type="text"]:focus{
   text-align: left;
   background-color: #D9D9D9;
+  color: #1E201E;
   border-radius: 10px;
   border: none;
   width: 25%;
@@ -58,10 +59,6 @@ margin: 2rem 0;
   font-size: 12px;
   font-family: "Geologica", sans-serif;
   font-weight: 400;
-}
-
-.heading>form>input[type="text"]:focus{
-  outline: none;
 }
 
 .heading>form>button[type="submit"]{
@@ -145,21 +142,7 @@ margin: 2rem 0;
   background-color:rgba(222, 208, 182, 0.50);
 }
 
-/* List Items */
-
-.list-items{
-  margin: 1rem 0;
-  border: 1.5px solid #DED0B6;
-  border-radius: 10px;
-  padding: 5px 15px;
-}
-
-form.delete{
-  margin: 1rem 0;
-  
-}
-
-/* Custom radio button design */
+/* Custom radio button design for delete */
 .custom-radio {
   display: inline-block;
   width: 12px;
@@ -193,17 +176,22 @@ input[type="radio"]:checked + .custom-radio::after {
   transform: translate(-50%, -50%) scale(1);
 }
 
-/* Individual Tasks */
+/* List Items */
+.list-items{
+  margin: 1rem 0;
+  border: 1.5px solid #DED0B6;
+  border-radius: 10px;
+  padding: 5px 15px;
+}
 
-.list form{
-  text-align: left;
+form.delete{
+  margin: 1rem 0;
 }
 
 .item {
   display: flex;
   min-height: 35px;
   align-items: top;
-  justify-content: flex-start;
   background-color: #3C3D37;
   color: #fff;
   margin: 10px 0;
@@ -211,54 +199,62 @@ input[type="radio"]:checked + .custom-radio::after {
   border-radius: 5px;
 }
 
-.item > p{
+.item .task-item{
   text-align: left;
+  flex-grow: 1;
+  font-size: 15px;
 }
-
-.item > button.edit{
-  margin-left: auto;
-}
-
-/* Review from here  */
 
 form.edit{
   display: flex;
-  align-items: top;
-  justify-content: flex-start;
+  border: none;
+  align-items: center;
 }
 
-form.edit > input[type="text"]{
+form input[type="text"]:focus {
+  margin: 15px 0;
+  font-family: "Geologica";
+  font-size: 15px;
+  font-weight: 400;
   text-align: left;
+  color: #ffffff90;
+  outline: none;
+  border: none;
 }
 
 form.edit > button.edit{
   margin-left: auto;
 }
 
-form.edit > input[type="text"]{
+form input[type="text"]{
   background-color: #3C3D37;
   color: #fff;
+  outline: none;
+  border: none;
+  font-family: "Geologica", sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  margin: 15px 0;
+  flex: 1;
 }
 
-/* .item-content{
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  font-size: 14px;
-  font-weight: 400;
-  letter-spacing: 0.3px;
-} */
+
+form.item input[type="text"]:focus{
+color: #fff;
+
+}
+
+form.item button{
+  margin-left: auto;
+  background-color: #3C3D37;
+  border: none;
+}
 
 form.delete{
   margin-right: 10px;
+  background-color: #3C3D37;
 }
 
-
-
-form.item{
-  display: flex;
-
-}
 
 
 
