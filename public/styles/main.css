@@ -1,7 +1,7 @@
 html {
   background-color: #1E201E;
   min-height: 100vh;
-  font-family: "helvetica neue";
+  font-family: "Geologica", sans-serif;
 }
 
 body {
@@ -16,7 +16,7 @@ main {
   flex: 1 0 auto;
 }
 
-/* List Heading */
+/* Header */
 div.heading{
   padding: 2rem;
 }
@@ -27,6 +27,7 @@ div.heading{
   font-size: 3rem;
   font-weight: 700;
   padding: 0;
+  margin: 0;
   line-height: normal;
   letter-spacing: 2px;
 }
@@ -80,59 +81,200 @@ margin: 2rem 0;
 .heading>form>button[type="submit"]:hover{
   background-color:  rgba(222, 208, 182, 0.80);
 }
+
+/* List Format with Grid */
 .list{
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
+  display: grid;
+  align-items: start;
+  justify-items: center;
   justify-content: center;
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, 400px);
+  gap: 50px;
   padding: 50px;
 }
 
-h1 {
-  color: #fff;
-  padding: 15px;
-  margin: 0;
-}
+/* List Title */
 
-.title.box{
-  margin:0;
-  border-bottom-left-radius:0;
-  border-bottom-right-radius:0;
-}
-
-.box {
-  max-width: 400px;
-  background: white;
-  border-radius: 5px;
-  box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
+.box{
   width: 400px;
+  max-width: 400px;
 }
 
-.title {
-  background-color: #a683e3;
-  text-align: center;
+.title{
+  margin: 0px;
+  padding: 0px;
+  text-align: left;
+  background-color: #1E201E;
+  border: none;
 }
-form.edit {
+
+.list .title h1{
+  margin:0;
+  text-align: left;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.list .title p {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 0.5px;
+  font-size: 0.8rem;
+  color: #DED0B6;
+}
+
+.list .title form{
   display: flex;
+  justify-content: space-between;
+}
+
+.title form>button{
+  align-self: center;
+  border: none;
+  background-color: #1E201E;
+}
+
+.icon {
+  border-radius: 5px;
+  height: 20px;
+  padding: 10px;
+  background-color:rgba(222, 208, 182, 0.50);
+}
+
+/* List Items */
+
+.list-items{
+  margin: 1rem 0;
+  border: 1.5px solid #DED0B6;
+  border-radius: 10px;
+  padding: 5px 15px;
+}
+
+form.delete{
+  margin: 1rem 0;
+  
+}
+
+/* Custom radio button design */
+.custom-radio {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 1px solid #DED0B6;
+  background: #1E201E;
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+}
+
+/* Checked state (when radio button is selected) */
+input[type="radio"]:checked + .custom-radio {
+  background-color: #000;
+}
+
+.custom-radio::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  background-color: #DED0B6;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.2s ease;
+}
+
+input[type="radio"]:checked + .custom-radio::after {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Individual Tasks */
+
+.list form{
+  text-align: left;
 }
 
 .item {
-  min-height: 70px;
+  display: flex;
+  min-height: 35px;
+  align-items: top;
+  justify-content: flex-start;
+  background-color: #3C3D37;
+  color: #fff;
+  margin: 10px 0;
+  padding-left:20px;
+  border-radius: 5px;
+}
+
+.item > p{
+  text-align: left;
+}
+
+.item > button.edit{
+  margin-left: auto;
+}
+
+/* Review from here  */
+
+form.edit{
+  display: flex;
+  align-items: top;
+  justify-content: flex-start;
+}
+
+form.edit > input[type="text"]{
+  text-align: left;
+}
+
+form.edit > button.edit{
+  margin-left: auto;
+}
+
+form.edit > input[type="text"]{
+  background-color: #3C3D37;
+  color: #fff;
+}
+
+/* .item-content{
   display: flex;
   align-items: center;
-  border-bottom: 1px solid #f1f1f1;
-  padding-left:20px;
+  justify-content: start;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+} */
+
+form.delete{
+  margin-right: 10px;
 }
+
+
+
+form.item{
+  display: flex;
+
+}
+
+
+
+
+
+/* 
+
+
+
+
 
 .item:last-child {
   border-bottom: 0;
 }
 
-input[type="checkbox"] {
-  margin: 20px;
-  margin-left: 0;
-}
+
 
 p {
   margin: 0;
@@ -163,9 +305,7 @@ button.edit {
   background: none;
 }
 
-.icon {
-  height: 20px;
-}
+
 
 /* input[type="text"] {
   text-align: left;
@@ -182,15 +322,9 @@ button.edit {
   box-shadow: inset 0 -3px 0 0 #a683e3;
 } */
 
-::placeholder {
+/* ::placeholder {
   color: lightgray;
   opacity: 1;
-}
-
-footer {
-  flex: 0 0 auto;
-  color: white;
-  text-align: center;
 }
 
 .new-list{
@@ -200,4 +334,16 @@ footer {
 
 .heading-id{
   display: none;
+} */
+
+/* footer {
+  flex: 0 0 auto;
+  color: white;
+  text-align: center;
+} */
+
+footer{
+color: #ffffff50;
+font-size: 0.8rem;
+font-weight: 200;
 }
