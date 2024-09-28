@@ -4,16 +4,18 @@ import pg from "pg";
 
 const app = express();
 const port = 3000;
+
 const db = new pg.Client({
   user: "postgres",
-  host: "localhost", 
+  host: "localhost",
   database: "tasklist",
   password: "work",
-  port: "5432" 
-})
+  port: "5432"
+});
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
+
 
 db.connect();
 
@@ -25,12 +27,6 @@ let items = [
 let categories = [{id: 1, type: "Learning"},{id:2, type: "General"}]
 
 let currentCategory = "";
-// async function getCurrentCategory(){
-//   const result = await db.query("SELECT * FROM categories")
-//   categories = result.rows;
-//   const currentCategory = categories.find((category) => category.id == currentCategoryId)
-//   return currentCategory.type;
-// }
 
 function fullDate(){
   const date =  new Date();
@@ -38,27 +34,11 @@ function fullDate(){
   return newDate;
 }
 
-// function getNumItems(listItems, category){
-//   let numItems = 0; 
-//   for (let item of listItems){
-//     if(item.category == category.type){
-//       numItems++;
-//     }
-//   }
-//   return numItems;
-// }
-
-
 app.get("/", async(req, res) => {
   try {
     categories = (await db.query("SELECT * FROM categories")).rows;
     const result = await db.query("SELECT * FROM items JOIN categories ON items.category = categories.type ORDER BY id ASC");
     items = result.rows;
-
-    // const currentCategory = await getCurrentCategory();
-    // console.log(currentCategory);
-    // const numItems = (await db.query("SELECT * FROM items WHERE category = ($1);", [currentCategory])).rows.length;
-    // console.log(numItems);
 
     const today = fullDate();
 
