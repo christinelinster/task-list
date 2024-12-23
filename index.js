@@ -65,6 +65,7 @@ app.get("/", async(req, res) => {
   res.render("index.ejs", {
     listItems: items,
     categories: categories,
+    currentCategory: currentCategory,
     today: today,
   });
     
@@ -114,7 +115,10 @@ app.post("/delete", async(req, res) => {
   try {
     const id = req.body.deleteItemId; 
     await db.query("DELETE FROM items WHERE id = ($1);", [id])
-    res.redirect("/");
+    setTimeout(function () {
+      res.redirect('/');
+    }, 500);
+
   } catch (error) {
     console.log(error);
   }

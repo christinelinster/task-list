@@ -18,43 +18,62 @@
   <% for (let category of categories){ %> 
     <div class="box">
       <div class="title">
-        <h1>
-          <form action="/deleteList" method="post">
+        <form action="/deleteList" method="post">
+        <div>
+          <h1>
             <input hidden name="listId" value="<%= category.cat_id%>" id="<%= category.cat_id%>">
             <label for="<%= category.cat_id%>"><%= category.type %></label>
-            <button onclick="this.form.submit()"><img class="icon" src="/assets/icons/trash.svg" alt="trash image"></button>
+          </h1>
+
+          <% if( listItems.filter(item => item.category == category.type).length ==1){ %>
+            <p><strong><%= listItems.filter(item => item.category == category.type).length %> </strong>task left</p>
+          <% } else {%>
+          <p><%= listItems.filter(item => item.category == category.type).length %> tasks left</p>
+          <% } %>
+        </div>
+        <button onclick="this.form.submit()"><img class="icon" src="/assets/icons/trash.svg" alt="trash image"></button>
+
           </form>
-        </h1>
-        <%= listItems.filter(item => item.category == category.type).length %> 
       </div>
 
+      <div class="list-items">
+      
      <% listItems.forEach((item) => { %>
         <% if(item.category==category.type) { %> 
           <div class="item">
-            <form action="/delete" method="post">
-              <input type="checkbox" onchange="this.form.submit()" name="deleteItemId" value="<%= item.id %>">
-            </form>
-    
-            <p id="task<%=item.id%>">
-              <%= item.task %>
-            </p>
-    
+            
+            <!-- Delete Form -->
+
+              <form class="delete" action="/delete" method="post">
+                <input type="radio" id="radio<%= item.id %>" onchange="this.form.submit()" name="deleteItemId" value="<%= item.id %>" hidden>
+                <label for="radio<%= item.id %>" class="custom-radio" ::after></label>
+              </form>
+              
+              <p id="task<%=item.id%>">
+                <%= item.task %>
+              </p>
+
             <form class="edit" action="/edit" method="post">
               <input type="hidden" name="updatedItemId" value="<%= item.id %>">
               <input id="input<%=item.id%>" type="text" name="updatedItemTask" value="<%= item.task %>" autocomplete="off"
-                autofocus="true" hidden="true" />
+                autofocus="true"  hidden="true"/>
               <button id="done<%=item.id%>" class="edit" type="submit" hidden><img class="icon"
                   src="/assets/icons/check-solid.svg" alt="tick image"></button>
             </form>
+
             <button id="edit<%=item.id%>" class="edit" onclick="handler('<%=item.id%>')"><img class="icon"
                 src="/assets/icons/pencil-solid.svg" alt="pencil image"></button>
           </div>
         <% } %>
       <% }) %> 
         <form class="item" action="/add" method="post">
-            <input type="text" name="newItem" placeholder="New Item" autocomplete="off" autofocus="true" />
+          <input type="text" name="newItem" placeholder="New Item" autocomplete="off" 
+          <% if (currentCategory == category.type) { %> 
+            autofocus="true" 
+          <% } %> />
             <button class="add" type="submit" name="list" value="<%= category.type%>" ><img class="icon" src="/assets/icons/add.svg" alt="add image"></button>
-          </form>
+        </form>
+      </div>
     </div>
   <% } %> 
 
