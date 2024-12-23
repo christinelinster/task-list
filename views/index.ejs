@@ -40,7 +40,7 @@
       
      <% listItems.forEach((item) => { %>
         <% if(item.category==category.type) { %> 
-          <div class="item">
+          <div class="item" >
             
             <!-- Delete Form -->
 
@@ -48,21 +48,16 @@
                 <input type="radio" id="radio<%= item.id %>" onchange="this.form.submit()" name="deleteItemId" value="<%= item.id %>" hidden>
                 <label for="radio<%= item.id %>" class="custom-radio" ::after></label>
               </form>
-              
-              <p id="task<%=item.id%>">
-                <%= item.task %>
-              </p>
-
-            <form class="edit" action="/edit" method="post">
-              <input type="hidden" name="updatedItemId" value="<%= item.id %>">
-              <input id="input<%=item.id%>" type="text" name="updatedItemTask" value="<%= item.task %>" autocomplete="off"
-                autofocus="true"  hidden="true"/>
-              <button id="done<%=item.id%>" class="edit" type="submit" hidden><img class="icon"
-                  src="/assets/icons/check-solid.svg" alt="tick image"></button>
-            </form>
-
-            <button id="edit<%=item.id%>" class="edit" onclick="handler('<%=item.id%>')"><img class="icon"
-                src="/assets/icons/pencil-solid.svg" alt="pencil image"></button>
+              <div class="task-item" onclick="editTask('<%= item.id %>')">
+                <p id="task<%= item.id %>">
+                  <%= item.task %>
+                </p>
+        
+                <form class="edit" action="/edit" method="post">
+                  <input type="hidden" name="updatedItemId" value="<%= item.id %>">
+                  <input id="input<%=item.id%>" type="text" name="updatedItemTask" value="<%= item.task %>" autocomplete="off" autofocus="true"  hidden="true" onfocusout="cancelEdit('<%= item.id %>')"/>
+                </form>
+              </div>
           </div>
         <% } %>
       <% }) %> 
@@ -71,7 +66,7 @@
           <% if (currentCategory == category.type) { %> 
             autofocus="true" 
           <% } %> />
-            <button class="add" type="submit" name="list" value="<%= category.type%>" ><img class="icon" src="/assets/icons/add.svg" alt="add image"></button>
+            <button class="add" type="submit" name="list" value="<%= category.type%>" hidden></button>
         </form>
       </div>
     </div>
@@ -88,6 +83,33 @@
       document.getElementById("done" + id).removeAttribute("hidden")
       document.getElementById("input" + id).removeAttribute("hidden")
     }
+
+    // Function to show the input field and hide the task text when clicked
+function editTask(itemId) {
+  document.getElementById(`task${itemId}`).style.display = 'none';  // Hide the task text
+  const inputField = document.getElementById(`input${itemId}`);
+  inputField.hidden = false;  // Show the input field
+  inputField.focus();  // Focus on the input field
+
+  const textLength = inputField.value.length;
+  inputField.setSelectionRange(textLength, textLength);
+}
+
+// Function to submit the form when the Enter key is pressed
+function submitOnEnter(event, itemId) {
+  if (event.key === "Enter") {
+    return true;  // Allow the form to submit
+  }
+  return false;
+}
+
+// Function to cancel edit when clicking outside the input field
+function cancelEdit(itemId) {
+  const inputField = document.getElementById(`input${itemId}`);
+  const taskText = document.getElementById(`task${itemId}`);
+  inputField.hidden = true;  // Hide the input field
+  taskText.style.display = 'block';  // Show the task text again
+}
   </script>
 
 
