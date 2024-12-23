@@ -1,26 +1,32 @@
 <%- include('partials/header.ejs'); -%>
 
-<h1><%= today %></h1>
-<form action="/list" method="post">
-  <input type="text" name="newList">
-  <button type="submit">Add List</button>
-</form>
 
-<div class="lists">
+<div class="heading">
+  <h1>TASK TRACKR</h1>
+  <p><%= today %></p>
+  
+  <form action="/list" method="post">
+    <input type="text" name="newList">
+    <button type="submit">Add List</button>
+  </form>
+</div>
+
+
+<div class="list">
   <% for (let category of categories){ %> 
-    
     <div class="box">
       <div class="box" id="heading">
         <h1>
           <form action="/deleteList" method="post">
-            <input name="categoryId" value="<%= category.id%>" id="<%= category.id%>">
-            <label for="<%= category.id%>"><%= category.type %></label>
-            <button onclick="this.form.submit()" name="deleteListId" value="<%= category.id%>">Delete List</button>
+            <input name="listId" value="<%= category.cat_id%>" id="<%= category.cat_id%>">
+            <label for="<%= category.cat_id%>"><%= category.type %></label>
+            <button onclick="this.form.submit()"><img class="icon" src="/assets/icons/trash.svg" alt="trash image"></button>
           </form>
         </h1>
+        <%= listItems.filter(item => item.category == category.type).length %> 
       </div>
-      
-      <% for(let item of listItems){%>
+
+     <% listItems.forEach((item) => { %>
         <% if(item.category==category.type) { %> 
           <div class="item">
             <form action="/delete" method="post">
@@ -42,11 +48,10 @@
                 src="/assets/icons/pencil-solid.svg" alt="pencil image"></button>
           </div>
         <% } %>
-
-        <% } %>
+      <% }) %> 
         <form class="item" action="/add" method="post">
             <input type="text" name="newItem" placeholder="New Item" autocomplete="off" autofocus="true" />
-            <button class="add" type="submit" name="list" value="<%= category.type%>" >+</button>
+            <button class="add" type="submit" name="list" value="<%= category.type%>" ><img class="icon" src="/assets/icons/add.svg" alt="add image"></button>
           </form>
     </div>
   <% } %> 
@@ -63,4 +68,6 @@
       document.getElementById("input" + id).removeAttribute("hidden")
     }
   </script>
+
+
   <%- include('partials/footer.ejs'); -%>
