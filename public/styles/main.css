@@ -133,6 +133,6 @@ footer {
   background-color: #a683e3;
 }
 
-h1 > form >input{
+.heading-id{
   display: none;
 }
